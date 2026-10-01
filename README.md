@@ -109,6 +109,8 @@ python -m pip --version
 
 Installeer Docker Desktop.
 
+https://www.docker.com/products/docker-desktop/
+
 Op een normale Windows-laptop met een 64-bit Intel- of AMD-processor gebruik je de **Windows AMD64/x86_64-versie**.
 
 Start daarna Docker Desktop en wacht totdat Docker volledig is gestart.
@@ -121,8 +123,6 @@ docker compose version
 ```
 
 Op Windows kan Docker Desktop vragen om **WSL 2** te installeren. Volg in dat geval de instructies van Docker en herstart de computer wanneer daarom wordt gevraagd.
-
-> Docker Desktop is een aparte applicatie. Het hoeft niet in Python of Conda geïnstalleerd te worden.
 
 ---
 
@@ -247,7 +247,7 @@ De key wordt gebruikt via de header:
 X-Reviewer-Key
 ```
 
-> Deel deze sleutel niet en zet hem niet in frontendcode, screenshots, GitHub of het inleverpakket.
+> Deel deze sleutel niet en zet hem niet in frontendcode of screenshots.
 
 ---
 
@@ -429,39 +429,6 @@ Controleer of je de actuele `REVIEWER_KEY` uit je lokale `.env` gebruikt.
 ### Poort 8000 of 5678 is al bezet
 
 Controleer welke applicatie de poort gebruikt of pas de hostpoort aan in `docker-compose.yml`.
-
-## Snelste start (eenmalig)
-
-Start Docker Desktop, clone de repository en open een terminal in de root van de repository:
-
-```bash
-python scripts/start.py
-```
-
-Dit genereert lokale sleutels, het PostgreSQL-wachtwoord en de n8n-encryptiesleutel, bouwt de API, start PostgreSQL, importeert de geleverde workflow via de officiële n8n-CLI en activeert deze vóór n8n start. Open daarna **http://localhost:8000**. De eerste download/build kan enkele minuten duren. Open **http://localhost:5678** om de workflow te bekijken; maak daar bij eerste bezoek een lokaal beheerdersaccount.
-
-`start.py` importeert de meegeleverde demo opnieuw. Gebruik voor latere herstarts `docker compose start`, zodat eigen workflowwijzigingen behouden blijven. `start.py` zelf is nog niet aantoonbaar op een schone machine getest; de Docker Compose-omgeving wel (zie `docs/testresultaten.md`). Handmatige stappen volgen hieronder.
-
-## Snel starten
-
-Benodigd: Docker Desktop met Compose, Python 3.11 of nieuwer, internet voor de eerste image-build. Start vanuit de root van de repository.
-
-```bash
-python scripts/setup.py
-docker compose up -d --build postgres api
-docker compose run --rm --no-deps n8n import:workflow --input=/workflows/workflow.json
-docker compose run --rm --no-deps n8n update:workflow --id=zorgagentDemo01 --active=true
-docker compose up -d n8n
-```
-
-1. Open http://localhost:5678 en voltooi de lokale n8n-accountconfiguratie indien nodig.
-2. Open de geïmporteerde workflow. Verschijnt die nog niet, vernieuw de pagina. Als CLI-import niet beschikbaar is, kies in de editor **Import from File** en selecteer `n8n/workflow.json`.
-3. Publiceer/activeer de workflow met de knop die jouw n8n-versie toont. Gebruik de productie-webhook `/webhook/wmo-aanvraag`.
-4. Open http://localhost:8000 voor de demo-interface.
-5. Lees de lokaal gegenereerde `REVIEWER_KEY` in `.env` en vul deze in het reviewergedeelte in. Deel deze niet mee in het inleverpakket. De key wordt via `X-Reviewer-Key` verzonden.
-6. Voer de vier scenario's uit en controleer daarna **Aanvragenoverzicht**, **Aanvraagdetails**, **Menselijke beoordeling** en **Auditlog**. Afgehandelde zaken verdwijnen uit de werkvoorraad maar blijven in het volledige overzicht staan.
-
-De eerste build kan langer duren dan het programmeren. **De uitvoerstatus van echte tests staat in `docs/testresultaten.md`.** Een geslaagde backendtest bewijst niet dat de n8n-workflow werkt. De bootstrap activeert de workflow; voer de webhooktest ook op jouw eigen Docker-installatie uit.
 
 ## Configuratie en adressen
 
