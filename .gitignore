@@ -1,0 +1,30 @@
+# Lokale secrets en configuratie (gebruik .env.example als sjabloon)
+.env
+.env.*
+!.env.example
+
+# Runtime-databases (identity-mapping en audit blijven lokaal)
+*.db
+*.db-*
+*.sqlite
+!docs/audit-demo.sqlite
+
+# Python
+__pycache__/
+*.py[co]
+.pytest_cache/
+.venv/
+venv/
+
+# Gegenereerd: inleverpakket (maak opnieuw met scripts/make_submission_zip.py)
+dist/
+
+# Ruwe n8n-exports bevatten eigenaar-/accountgegevens
+test-artifacts/actual-workflow.json
+*.raw-export.json
+
+# Editor/OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
