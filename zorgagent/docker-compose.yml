@@ -1,0 +1,45 @@
+services:
+  api:
+    build: ./backend
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      DB_PATH: /data/audit.db
+      IDENTITY_PATH: /data/identity.db
+      REVIEWER_KEY: ${REVIEWER_KEY:?Run python scripts/setup.py first}
+      INTERNAL_KEY: ${INTERNAL_KEY:?Run python scripts/setup.py first}
+      DEMO_MODE: ${DEMO_MODE:-true}
+      N8N_WEBHOOK_URL: http://n8n:5678/webhook/wmo-aanvraag
+    volumes:
+      - audit_data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+  n8n:
+    image: ${N8N_IMAGE:-docker.n8n.io/n8nio/n8n:1.112.6}
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      GENERIC_TIMEZONE: Europe/Amsterdam
+      TZ: Europe/Amsterdam
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      N8N_SECURE_COOKIE: "false"
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      INTERNAL_KEY: ${INTERNAL_KEY:?Run python scripts/setup.py first}
+      EXECUTIONS_DATA_SAVE_ON_SUCCESS: none
+      EXECUTIONS_DATA_SAVE_ON_ERROR: none
+      EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS: "false"
+      EXECUTIONS_DATA_SAVE_ON_PROGRESS: "false"
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n:/workflows:ro
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  audit_data:
+  n8n_data:

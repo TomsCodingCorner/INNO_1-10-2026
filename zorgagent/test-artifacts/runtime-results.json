@@ -1,0 +1,8 @@
+{
+  "ui_proxy": "passed",
+  "human_decision_and_audit": "passed",
+  "backend_unavailable_returns_503": "passed",
+  "backend_process_restart_persistence": "passed",
+  "docker_restart": "not_run",
+  "note": "Native n8n 1.112.6; workflow endpoints adapted only from api:8000 to 127.0.0.1:8000."
+}

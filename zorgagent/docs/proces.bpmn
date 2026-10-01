@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Zorgagent" targetNamespace="https://example.invalid/zorgagent">
+  <bpmn:process id="Process_Zorgagent" name="Synthetische WMO-voorbereiding en menselijke beslissing" isExecutable="false">
+    <bpmn:startEvent id="start" name="Aanvraag ontvangen" />
+    <bpmn:serviceTask id="validate" name="Gegevens en toestemming valideren" />
+    <bpmn:exclusiveGateway id="valid" name="Geldig?" />
+    <bpmn:serviceTask id="rejectlog" name="Validatiefout loggen zonder ruwe invoer" />
+    <bpmn:sendTask id="rejectmsg" name="Duidelijke foutmelding (HTTP 400)" />
+    <bpmn:endEvent id="rejectend" name="Niet verwerkt met AI" />
+    <bpmn:serviceTask id="prepare" name="Token maken en AI-input minimaliseren" />
+    <bpmn:serviceTask id="policy" name="Fictieve beleidsregels ophalen" />
+    <bpmn:serviceTask id="ai" name="AI-stub maakt voorbereidend voorstel" />
+    <bpmn:serviceTask id="assess" name="Risico, fairness en onderbouwing toetsen" />
+    <bpmn:exclusiveGateway id="risk" name="Prioriteitsreview nodig?" />
+    <bpmn:serviceTask id="priority" name="Zaak + audit opslaan: prioriteitsreview" />
+    <bpmn:serviceTask id="standard" name="Zaak + audit opslaan: standaardreview" />
+    <bpmn:exclusiveGateway id="merge" name="Reviewstatus opgeslagen" />
+    <bpmn:sendTask id="receipt" name="Vast ontvangstbericht: AI helpt, mens beslist" />
+    <bpmn:userTask id="review" name="Mens beoordeelt en motiveert beslissing" />
+    <bpmn:serviceTask id="decision" name="Menselijk oordeel en audit-event opslaan" />
+    <bpmn:endEvent id="end" name="Menselijke beslissing vastgelegd" />
+    <bpmn:sequenceFlow id="f1" sourceRef="start" targetRef="validate" />
+    <bpmn:sequenceFlow id="f2" sourceRef="validate" targetRef="valid" />
+    <bpmn:sequenceFlow id="f3" sourceRef="valid" targetRef="rejectlog" name="Nee" />
+    <bpmn:sequenceFlow id="f4" sourceRef="rejectlog" targetRef="rejectmsg" />
+    <bpmn:sequenceFlow id="f5" sourceRef="rejectmsg" targetRef="rejectend" />
+    <bpmn:sequenceFlow id="f6" sourceRef="valid" targetRef="prepare" name="Ja" />
+    <bpmn:sequenceFlow id="f7" sourceRef="prepare" targetRef="policy" />
+    <bpmn:sequenceFlow id="f8" sourceRef="policy" targetRef="ai" />
+    <bpmn:sequenceFlow id="f9" sourceRef="ai" targetRef="assess" />
+    <bpmn:sequenceFlow id="f10" sourceRef="assess" targetRef="risk" />
+    <bpmn:sequenceFlow id="f11" sourceRef="risk" targetRef="priority" name="Ja" />
+    <bpmn:sequenceFlow id="f12" sourceRef="risk" targetRef="standard" name="Nee" />
+    <bpmn:sequenceFlow id="f13" sourceRef="priority" targetRef="merge" />
+    <bpmn:sequenceFlow id="f14" sourceRef="standard" targetRef="merge" />
+    <bpmn:sequenceFlow id="f15" sourceRef="merge" targetRef="receipt" />
+    <bpmn:sequenceFlow id="f16" sourceRef="receipt" targetRef="review" />
+    <bpmn:sequenceFlow id="f17" sourceRef="review" targetRef="decision" />
+    <bpmn:sequenceFlow id="f18" sourceRef="decision" targetRef="end" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_Zorgagent">
+    <bpmndi:BPMNPlane id="Plane_Zorgagent" bpmnElement="Process_Zorgagent">
+      <bpmndi:BPMNShape id="Shape_start" bpmnElement="start">
+        <dc:Bounds x="520" y="60" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_validate" bpmnElement="validate">
+        <dc:Bounds x="390" y="140" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_valid" bpmnElement="valid">
+        <dc:Bounds x="513" y="250" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_rejectlog" bpmnElement="rejectlog">
+        <dc:Bounds x="850" y="240" width="290" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_rejectmsg" bpmnElement="rejectmsg">
+        <dc:Bounds x="850" y="345" width="290" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_rejectend" bpmnElement="rejectend">
+        <dc:Bounds x="977" y="460" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_prepare" bpmnElement="prepare">
+        <dc:Bounds x="390" y="345" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_policy" bpmnElement="policy">
+        <dc:Bounds x="390" y="450" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_ai" bpmnElement="ai">
+        <dc:Bounds x="390" y="555" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_assess" bpmnElement="assess">
+        <dc:Bounds x="390" y="660" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_risk" bpmnElement="risk">
+        <dc:Bounds x="513" y="775" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_priority" bpmnElement="priority">
+        <dc:Bounds x="140" y="875" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_standard" bpmnElement="standard">
+        <dc:Bounds x="640" y="875" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_merge" bpmnElement="merge">
+        <dc:Bounds x="513" y="995" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_receipt" bpmnElement="receipt">
+        <dc:Bounds x="390" y="1085" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_review" bpmnElement="review">
+        <dc:Bounds x="390" y="1190" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_decision" bpmnElement="decision">
+        <dc:Bounds x="390" y="1295" width="296" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_end" bpmnElement="end">
+        <dc:Bounds x="520" y="1420" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_f1" bpmnElement="f1">
+        <di:waypoint x="538" y="96" />
+        <di:waypoint x="538" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f2" bpmnElement="f2">
+        <di:waypoint x="538" y="208" />
+        <di:waypoint x="538" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f3" bpmnElement="f3">
+        <di:waypoint x="563" y="275" />
+        <di:waypoint x="850" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f4" bpmnElement="f4">
+        <di:waypoint x="995" y="308" />
+        <di:waypoint x="995" y="345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f5" bpmnElement="f5">
+        <di:waypoint x="995" y="413" />
+        <di:waypoint x="995" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f6" bpmnElement="f6">
+        <di:waypoint x="538" y="300" />
+        <di:waypoint x="538" y="345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f7" bpmnElement="f7">
+        <di:waypoint x="538" y="413" />
+        <di:waypoint x="538" y="450" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f8" bpmnElement="f8">
+        <di:waypoint x="538" y="518" />
+        <di:waypoint x="538" y="555" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f9" bpmnElement="f9">
+        <di:waypoint x="538" y="623" />
+        <di:waypoint x="538" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f10" bpmnElement="f10">
+        <di:waypoint x="538" y="728" />
+        <di:waypoint x="538" y="775" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f11" bpmnElement="f11">
+        <di:waypoint x="513" y="800" />
+        <di:waypoint x="288" y="800" />
+        <di:waypoint x="288" y="875" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f12" bpmnElement="f12">
+        <di:waypoint x="563" y="800" />
+        <di:waypoint x="788" y="800" />
+        <di:waypoint x="788" y="875" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f13" bpmnElement="f13">
+        <di:waypoint x="288" y="943" />
+        <di:waypoint x="288" y="1020" />
+        <di:waypoint x="513" y="1020" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f14" bpmnElement="f14">
+        <di:waypoint x="788" y="943" />
+        <di:waypoint x="788" y="1020" />
+        <di:waypoint x="563" y="1020" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f15" bpmnElement="f15">
+        <di:waypoint x="538" y="1045" />
+        <di:waypoint x="538" y="1085" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f16" bpmnElement="f16">
+        <di:waypoint x="538" y="1153" />
+        <di:waypoint x="538" y="1190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f17" bpmnElement="f17">
+        <di:waypoint x="538" y="1258" />
+        <di:waypoint x="538" y="1295" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_f18" bpmnElement="f18">
+        <di:waypoint x="538" y="1363" />
+        <di:waypoint x="538" y="1420" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

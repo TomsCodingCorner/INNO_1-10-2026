@@ -1,0 +1,603 @@
+[
+  {
+    "id": 22,
+    "caseId": null,
+    "eventType": "validation_failed",
+    "createdAt": "2026-10-01T09:53:36.297264+00:00",
+    "data": {
+      "errorCode": "AI_CONSENT_REQUIRED",
+      "correlationId": "7e1ff107-ea61-48fa-95c9-48b6d7f6ab57"
+    }
+  },
+  {
+    "id": 21,
+    "caseId": "2fad454e-4044-4290-af5a-7c235bfda947",
+    "eventType": "review_ready",
+    "createdAt": "2026-10-01T09:53:21.373034+00:00",
+    "data": {
+      "status": "pending_priority_review",
+      "statusLabel": "Extra beoordeling nodig",
+      "reasons": [
+        "Fairness- of onderbouwingsflag aanwezig"
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "caseId": "2fad454e-4044-4290-af5a-7c235bfda947",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:53:21.372997+00:00",
+    "data": {
+      "token": "c2929b09-5341-4be0-9940-c46ea7c93811",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken. Het geslacht van de aanvrager is bepalend voor dit voorstel.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [
+          "fairness:geslacht"
+        ],
+        "reasoningValid": true,
+        "requiresPriorityReview": true,
+        "status": "pending_priority_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 19,
+    "caseId": "2fad454e-4044-4290-af5a-7c235bfda947",
+    "eventType": "application_prepared",
+    "createdAt": "2026-10-01T09:53:21.372804+00:00",
+    "data": {
+      "token": "c2929b09-5341-4be0-9940-c46ea7c93811",
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 18,
+    "caseId": "9352d1ba-80cb-414f-bf07-e7d32f153e0b",
+    "eventType": "review_ready",
+    "createdAt": "2026-10-01T09:53:06.467032+00:00",
+    "data": {
+      "status": "pending_priority_review",
+      "statusLabel": "Extra beoordeling nodig",
+      "reasons": [
+        "Ernst is hoog",
+        "Meerdere problemen gemeld",
+        "Risicoscore is hoog"
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "caseId": "9352d1ba-80cb-414f-bf07-e7d32f153e0b",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:53:06.467003+00:00",
+    "data": {
+      "token": "f1f87fbd-ea35-4a6a-8c25-7c9544bcf29d",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 100,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": true,
+        "status": "pending_priority_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "high",
+        "problemCount": 2,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 16,
+    "caseId": "9352d1ba-80cb-414f-bf07-e7d32f153e0b",
+    "eventType": "application_prepared",
+    "createdAt": "2026-10-01T09:53:06.466909+00:00",
+    "data": {
+      "token": "f1f87fbd-ea35-4a6a-8c25-7c9544bcf29d",
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "high",
+        "problemCount": 2,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 15,
+    "caseId": "381214b2-2ee1-4777-ba3b-522976552cd6",
+    "eventType": "human_decision",
+    "createdAt": "2026-10-01T09:52:53.823603+00:00",
+    "data": {
+      "decision": "needs_information",
+      "reasoning": "Demo: medewerker vraagt eerst aanvullende informatie op.",
+      "actor": "local-demo-reviewer"
+    }
+  },
+  {
+    "id": 14,
+    "caseId": "381214b2-2ee1-4777-ba3b-522976552cd6",
+    "eventType": "review_ready",
+    "createdAt": "2026-10-01T09:52:44.307664+00:00",
+    "data": {
+      "status": "pending_standard_review",
+      "statusLabel": "Wacht op beoordeling",
+      "reasons": [
+        "Menselijke beoordeling blijft vereist voordat een beslissing definitief is"
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "caseId": "381214b2-2ee1-4777-ba3b-522976552cd6",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:52:44.307567+00:00",
+    "data": {
+      "token": "41063a01-a369-4689-974b-4f59e42700b3",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": false,
+        "status": "pending_standard_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 12,
+    "caseId": "381214b2-2ee1-4777-ba3b-522976552cd6",
+    "eventType": "application_prepared",
+    "createdAt": "2026-10-01T09:52:44.307326+00:00",
+    "data": {
+      "token": "41063a01-a369-4689-974b-4f59e42700b3",
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 11,
+    "caseId": "e684240a-7705-4184-a44e-c244ecc18c12",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:36:50.470646+00:00",
+    "data": {
+      "token": "7eaad0a0-9d14-489d-a45b-03e2abc7fd95",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": false,
+        "status": "pending_standard_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 10,
+    "caseId": "f5121c82-ac6a-46be-b519-c266038f7c7b",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:36:49.126938+00:00",
+    "data": {
+      "token": "25a47449-a549-45c9-8300-526625c1b906",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken. Het geslacht van de aanvrager is bepalend voor dit voorstel.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [
+          "fairness:geslacht"
+        ],
+        "reasoningValid": true,
+        "requiresPriorityReview": true,
+        "status": "pending_priority_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 9,
+    "caseId": null,
+    "eventType": "validation_failed",
+    "createdAt": "2026-10-01T09:36:47.563599+00:00",
+    "data": {
+      "errorCode": "AI_CONSENT_REQUIRED"
+    }
+  },
+  {
+    "id": 8,
+    "caseId": "ba96ff3b-f268-4b6f-929e-a9218163f44f",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:36:46.931740+00:00",
+    "data": {
+      "token": "796cdaf0-4bc8-45ab-8a92-e11e3ec27977",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken. Het geslacht van de aanvrager is bepalend voor dit voorstel.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [
+          "fairness:geslacht"
+        ],
+        "reasoningValid": true,
+        "requiresPriorityReview": true,
+        "status": "pending_priority_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 7,
+    "caseId": null,
+    "eventType": "validation_failed",
+    "createdAt": "2026-10-01T09:36:45.984056+00:00",
+    "data": {
+      "errorCode": "AI_CONSENT_REQUIRED"
+    }
+  },
+  {
+    "id": 6,
+    "caseId": "a8d40357-524f-4ade-b615-3eeeb0797cf0",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:36:43.378217+00:00",
+    "data": {
+      "token": "673ac6c1-c768-4412-8d64-af738b9e924a",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 100,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": true,
+        "status": "pending_priority_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "high",
+        "problemCount": 2,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 5,
+    "caseId": "6feb0ae4-9169-45b6-a4f2-b129001f82ec",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:36:41.649767+00:00",
+    "data": {
+      "token": "b18231ab-f9a3-4a52-b26a-9d4828ffbedf",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": false,
+        "status": "pending_standard_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 4,
+    "caseId": "586bb3e7-1d8a-4c0c-b2dd-d58eab517fb6",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:34:45.599783+00:00",
+    "data": {
+      "token": "ec8a0140-a151-4967-8983-e597fb20ebeb",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": false,
+        "status": "pending_standard_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 3,
+    "caseId": "0464231d-e1c3-489c-ac41-d776c557b66f",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:34:20.215767+00:00",
+    "data": {
+      "token": "c5ee3ed2-fa1c-4d48-b47c-67ba36b322ab",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": false,
+        "status": "pending_standard_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 2,
+    "caseId": "69a63923-decb-451d-b27e-aa5db3fe6431",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:34:18.272462+00:00",
+    "data": {
+      "token": "735183e4-8383-46d6-a19e-d0f004ae26db",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [],
+        "reasoningValid": true,
+        "requiresPriorityReview": false,
+        "status": "pending_standard_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  },
+  {
+    "id": 1,
+    "caseId": "2d9633b5-9418-439b-92d6-771c3c2efb7e",
+    "eventType": "ai_preparation",
+    "createdAt": "2026-10-01T09:34:17.388930+00:00",
+    "data": {
+      "token": "21523e23-004d-417e-8f9d-269e8b195314",
+      "aiVersion": "deterministic-stub-v1",
+      "policyVersion": "demo-v1",
+      "proposal": {
+        "proposal": "Laat een medewerker de ondersteuningsbehoefte beoordelen.",
+        "reasoning": "De aanvraag vermeldt beperkingen bij schoonmaken. Het geslacht van de aanvrager is bepalend voor dit voorstel.",
+        "policyReferences": [
+          "DEMO-01"
+        ],
+        "missingInformation": [
+          "Omvang van benodigde ondersteuning"
+        ]
+      },
+      "assessment": {
+        "riskScore": 0,
+        "flags": [
+          "fairness:geslacht"
+        ],
+        "reasoningValid": true,
+        "requiresPriorityReview": true,
+        "status": "pending_priority_review"
+      },
+      "aiInput": {
+        "ageGroup": "75_plus",
+        "requestType": "household_support",
+        "severity": "low",
+        "problemCount": 1,
+        "limitations": [
+          "cleaning"
+        ],
+        "existingSupport": false
+      }
+    }
+  }
+]

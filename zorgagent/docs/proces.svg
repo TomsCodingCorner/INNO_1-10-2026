@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1560" viewBox="0 0 1200 1560">
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#34465c"/></marker></defs>
+<rect width="1200" height="1560" fill="#f8fafc"/>
+<g font-family="Arial, sans-serif" fill="#17283d">
+<text x="35" y="30" font-size="22" font-weight="bold">BPMN — Zelfstandige Zorgagent · fictief demo-beleid</text>
+<polyline points="538,96 538,140" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,208 538,250" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="563,275 850,275" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="575" y="265" font-size="15">Nee</text>
+<polyline points="995,308 995,345" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="995,413 995,460" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,300 538,345" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="555" y="328" font-size="15">Ja</text>
+<polyline points="538,413 538,450" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,518 538,555" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,623 538,660" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,728 538,775" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="513,800 288,800 288,875" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="445" y="786" font-size="15">Ja</text>
+<polyline points="563,800 788,800 788,875" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="575" y="790" font-size="15">Nee</text>
+<polyline points="288,943 288,1020 513,1020" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="788,943 788,1020 563,1020" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,1045 538,1085" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,1153 538,1190" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,1258 538,1295" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="538,1363 538,1420" fill="none" stroke="#34465c" stroke-width="2" marker-end="url(#arrow)"/>
+<circle cx="538.0" cy="78.0" r="18" fill="white" stroke="#176958" stroke-width="2"/>
+<text x="538.0" y="120" text-anchor="middle" font-size="15">Aanvraag ontvangen</text>
+<rect x="390" y="140" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="157" font-size="11" fill="#557087">S</text>
+<text x="538.0" y="179.0" text-anchor="middle" font-size="15">Gegevens en toestemming valideren</text>
+<polygon points="538.0,250 563,275.0 538.0,300 513,275.0" fill="#fff3d4" stroke="#997019" stroke-width="2"/>
+<text x="538.0" y="282.0" text-anchor="middle" font-size="24">×</text>
+<text x="498" y="238" text-anchor="end" font-size="15">Geldig?</text>
+<rect x="850" y="240" width="290" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="860" y="257" font-size="11" fill="#557087">S</text>
+<text x="995.0" y="270.0" text-anchor="middle" font-size="15">Validatiefout loggen zonder ruwe</text>
+<text x="995.0" y="288.0" text-anchor="middle" font-size="15">invoer</text>
+<rect x="850" y="345" width="290" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="860" y="362" font-size="11" fill="#557087">M</text>
+<text x="995.0" y="384.0" text-anchor="middle" font-size="15">Duidelijke foutmelding (HTTP 400)</text>
+<circle cx="995.0" cy="478.0" r="18" fill="white" stroke="#176958" stroke-width="5"/>
+<text x="995.0" y="520" text-anchor="middle" font-size="15">Niet verwerkt met AI</text>
+<rect x="390" y="345" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="362" font-size="11" fill="#557087">S</text>
+<text x="538.0" y="375.0" text-anchor="middle" font-size="15">Token maken en AI-input</text>
+<text x="538.0" y="393.0" text-anchor="middle" font-size="15">minimaliseren</text>
+<rect x="390" y="450" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="467" font-size="11" fill="#557087">S</text>
+<text x="538.0" y="489.0" text-anchor="middle" font-size="15">Fictieve beleidsregels ophalen</text>
+<rect x="390" y="555" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="572" font-size="11" fill="#557087">S</text>
+<text x="538.0" y="585.0" text-anchor="middle" font-size="15">AI-stub maakt voorbereidend</text>
+<text x="538.0" y="603.0" text-anchor="middle" font-size="15">voorstel</text>
+<rect x="390" y="660" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="677" font-size="11" fill="#557087">S</text>
+<text x="538.0" y="690.0" text-anchor="middle" font-size="15">Risico, fairness en onderbouwing</text>
+<text x="538.0" y="708.0" text-anchor="middle" font-size="15">toetsen</text>
+<polygon points="538.0,775 563,800.0 538.0,825 513,800.0" fill="#fff3d4" stroke="#997019" stroke-width="2"/>
+<text x="538.0" y="807.0" text-anchor="middle" font-size="24">×</text>
+<text x="498" y="763" text-anchor="end" font-size="15">Prioriteitsreview nodig?</text>
+<rect x="140" y="875" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="150" y="892" font-size="11" fill="#557087">S</text>
+<text x="288.0" y="905.0" text-anchor="middle" font-size="15">Zaak + audit opslaan:</text>
+<text x="288.0" y="923.0" text-anchor="middle" font-size="15">prioriteitsreview</text>
+<rect x="640" y="875" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="650" y="892" font-size="11" fill="#557087">S</text>
+<text x="788.0" y="905.0" text-anchor="middle" font-size="15">Zaak + audit opslaan:</text>
+<text x="788.0" y="923.0" text-anchor="middle" font-size="15">standaardreview</text>
+<polygon points="538.0,995 563,1020.0 538.0,1045 513,1020.0" fill="#fff3d4" stroke="#997019" stroke-width="2"/>
+<text x="538.0" y="1027.0" text-anchor="middle" font-size="24">×</text>
+<text x="498" y="983" text-anchor="end" font-size="15">Reviewstatus opgeslagen</text>
+<rect x="390" y="1085" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="1102" font-size="11" fill="#557087">M</text>
+<text x="538.0" y="1115.0" text-anchor="middle" font-size="15">Vast ontvangstbericht: AI helpt,</text>
+<text x="538.0" y="1133.0" text-anchor="middle" font-size="15">mens beslist</text>
+<rect x="390" y="1190" width="296" height="68" rx="9" fill="#e6f4ee" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="1207" font-size="11" fill="#557087">H</text>
+<text x="538.0" y="1220.0" text-anchor="middle" font-size="15">Mens beoordeelt en motiveert</text>
+<text x="538.0" y="1238.0" text-anchor="middle" font-size="15">beslissing</text>
+<rect x="390" y="1295" width="296" height="68" rx="9" fill="#ffffff" stroke="#34465c" stroke-width="2"/>
+<text x="400" y="1312" font-size="11" fill="#557087">S</text>
+<text x="538.0" y="1325.0" text-anchor="middle" font-size="15">Menselijk oordeel en audit-event</text>
+<text x="538.0" y="1343.0" text-anchor="middle" font-size="15">opslaan</text>
+<circle cx="538.0" cy="1438.0" r="18" fill="white" stroke="#176958" stroke-width="5"/>
+<text x="538.0" y="1480" text-anchor="middle" font-size="15">Menselijke beslissing vastgelegd</text>
+<text x="35" y="1505" font-size="14">S = servicetaak · M = berichttaak · H = menselijke taak · diamant = exclusieve gateway</text>
+<text x="35" y="1530" font-size="14">Ontvangstbericht is geen toekenning. Technische fouten stoppen de verwerking; geen vals succesbericht.</text>
+</g></svg>

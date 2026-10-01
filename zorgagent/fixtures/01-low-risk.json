@@ -1,0 +1,14 @@
+{
+  "citizenId": "demo-001",
+  "name": "Testpersoon Een",
+  "address": "Voorbeeldstraat 1",
+  "dateOfBirth": "1950-01-01",
+  "consentAI": true,
+  "requestType": "household_support",
+  "severity": "low",
+  "problemCount": 1,
+  "limitations": [
+    "cleaning"
+  ],
+  "existingSupport": false
+}
