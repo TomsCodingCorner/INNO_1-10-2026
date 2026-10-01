@@ -10,7 +10,7 @@ Hackathon-opdracht: WMO-aanvragen automatisch en transparant voorbereiden met AI
 .
 ├── README.md              Dit bestand: wat, hoe starten, waar staat wat
 ├── NOG-TE-DOEN.md         Resterende teamacties vóór inlevering
-├── docker-compose.yml     Start de twee services: api (FastAPI) en n8n
+├── docker-compose.yml     Start de drie services: postgres, api (FastAPI) en n8n
 ├── .env.example           Sjabloon voor lokale keys; echte .env maakt scripts/setup.py (nooit committen)
 ├── backend/               FastAPI-service (Docker-image "api")
 │   ├── Dockerfile
@@ -18,6 +18,7 @@ Hackathon-opdracht: WMO-aanvragen automatisch en transparant voorbereiden met AI
 │   ├── app/main.py        Validatie, minimalisatie, pseudonimisering, beleid, AI-stub, fairness/risico, audit, review-API
 │   └── static/index.html  Demo-interface voor burger en beoordelaar
 ├── n8n/workflow.json      De n8n-workflow (orkestratie); read-only gemount in de n8n-container op /workflows
+├── postgres/initdb/       Eenmalige database-initialisatie voor de n8n-database
 ├── fixtures/              De vier verplichte testaanvragen (synthetisch)
 ├── scripts/               setup.py, start.py, test_e2e.py, build_workflow.py, make_submission_zip.py
 ├── tests/                 Backendtests (pytest); bewijzen níet dat n8n werkt
@@ -25,7 +26,7 @@ Hackathon-opdracht: WMO-aanvragen automatisch en transparant voorbereiden met AI
 └── docs/                  Alle deliverables en procesdocumentatie (zie tabel hieronder)
 ```
 
-Data en configuratie: de SQLite-databases (`audit.db` en de aparte `identity.db` met de token-koppeling) staan in het Docker-volume `audit_data`, niet in Git. De n8n-instellingen staan in het volume `n8n_data`. Keys staan alleen in de lokale `.env`.
+Data en configuratie: de runtime draait op drie Docker-containers: `postgres`, `api` en `n8n`. PostgreSQL bewaart de applicatietabellen en de n8n-database. Lokale opslag staat onder `./data/postgres`, `./data/n8n` en `./data/app`; deze map staat niet in Git. Keys, databasewachtwoord en n8n-encryptiesleutel staan alleen in de lokale `.env`.
 
 ## Hoe de onderdelen communiceren
 
@@ -42,6 +43,7 @@ n8n-webhook /webhook/wmo-aanvraag ──► n8n-workflow orkestreert elke stap v
    6. IF prioriteit          → vast burgerbericht (standaard of extra beoordeling)
    ✗  ongeldig / geen toestemming → POST /audit/events + HTTP 400; technische fout → HTTP 503
 Beoordelaar (UI + X-Reviewer-Key) ──► GET /reviews, /cases, /audit · POST /reviews/{id}/decision
+PostgreSQL ──► applicatietabellen in database `zorgagent`; n8n-tabellen in database `n8n`
 ```
 
 Interne stappen zijn beveiligd met `X-Internal-Key`; n8n leest die uit zijn containeromgeving.
@@ -70,7 +72,7 @@ Start Docker Desktop, clone de repository en open een terminal in de root van de
 python scripts/start.py
 ```
 
-Dit genereert lokale sleutels, bouwt de API, importeert de geleverde workflow via de officiële n8n-CLI en activeert deze vóór n8n start. Open daarna **http://localhost:8000**. De eerste download/build kan enkele minuten duren. Open **http://localhost:5678** om de workflow te bekijken; maak daar bij eerste bezoek een lokaal beheerdersaccount.
+Dit genereert lokale sleutels, het PostgreSQL-wachtwoord en de n8n-encryptiesleutel, bouwt de API, start PostgreSQL, importeert de geleverde workflow via de officiële n8n-CLI en activeert deze vóór n8n start. Open daarna **http://localhost:8000**. De eerste download/build kan enkele minuten duren. Open **http://localhost:5678** om de workflow te bekijken; maak daar bij eerste bezoek een lokaal beheerdersaccount.
 
 `start.py` importeert de meegeleverde demo opnieuw. Gebruik voor latere herstarts `docker compose start`, zodat eigen workflowwijzigingen behouden blijven. `start.py` zelf is nog niet aantoonbaar op een schone machine getest; de Docker Compose-omgeving wel (zie `docs/testresultaten.md`). Handmatige stappen volgen hieronder.
 
@@ -80,8 +82,10 @@ Benodigd: Docker Desktop met Compose, Python 3.11 of nieuwer, internet voor de e
 
 ```bash
 python scripts/setup.py
-docker compose up -d --build
-docker compose exec n8n n8n import:workflow --input=/workflows/workflow.json
+docker compose up -d --build postgres api
+docker compose run --rm --no-deps n8n import:workflow --input=/workflows/workflow.json
+docker compose run --rm --no-deps n8n update:workflow --id=zorgagentDemo01 --active=true
+docker compose up -d n8n
 ```
 
 1. Open http://localhost:5678 en voltooi de lokale n8n-accountconfiguratie indien nodig.
@@ -95,7 +99,7 @@ De eerste build kan langer duren dan het programmeren. **De uitvoerstatus van ec
 
 ## Configuratie en adressen
 
-`setup.py` maakt de lokale configuratie; `.env.example` beschrijft de variabelen. De Compose-configuratie gebruikt n8n 1.112.6 en bindt poorten alleen aan localhost. `INTERNAL_KEY` beschermt interne backendstappen; n8n leest deze uit de containeromgeving. `REVIEWER_KEY` beschermt review, audit en metrics. Beide keys zijn lokaal gegenereerd en blijven buiten de repository. Gebruik de ingestelde demomodus alleen voor synthetische tests. Een verboden-termfixture is testgedrag, geen productiefunctionaliteit.
+`setup.py` maakt of vult de lokale configuratie aan; `.env.example` beschrijft de variabelen. De Compose-configuratie gebruikt n8n 1.112.6, PostgreSQL 16 en bindt poorten alleen aan localhost. `INTERNAL_KEY` beschermt interne backendstappen; n8n leest deze uit de containeromgeving. `REVIEWER_KEY` beschermt review, audit en metrics. `POSTGRES_PASSWORD` en `N8N_ENCRYPTION_KEY` worden lokaal gegenereerd. Gebruik de ingestelde demomodus alleen voor synthetische tests. Een verboden-termfixture is testgedrag, geen productiefunctionaliteit.
 
 | Doel | Adres |
 |---|---|
@@ -105,6 +109,7 @@ De eerste build kan langer duren dan het programmeren. **De uitvoerstatus van ec
 | n8n-editor | http://localhost:5678 |
 | Productie-webhook op host | http://localhost:5678/webhook/wmo-aanvraag |
 | Backend vanuit n8n-container | http://api:8000 |
+| PostgreSQL op host | 127.0.0.1:5432 |
 
 De UI geeft aanvragen via een proxy door aan n8n. De proxy voert geen inhoudelijke workflow uit. Elke validatie-, AI-, controle- en opslagstap wordt vanuit n8n aangeroepen. Menselijke review gebeurt later via aparte reviewer-endpoints. De interne overzichten zijn beveiligd met `X-Reviewer-Key`; zet deze sleutel niet in frontendcode, screenshots of het inleverpakket.
 
@@ -169,7 +174,7 @@ docker compose stop
 docker compose start
 ```
 
-`docker compose down` verwijdert containers/netwerk maar behoudt named volumes. Gebruik **geen** `down -v` als je database en n8n-configuratie wilt bewaren.
+`docker compose down` verwijdert containers/netwerk maar behoudt de lokale data in `./data`. Verwijder `./data` alleen als je bewust opnieuw wilt beginnen met lege databases en een lege n8n-configuratie.
 
 ## Problemen oplossen
 
@@ -181,14 +186,15 @@ docker compose start
 | Poort bezet | Pas de hostpoort in Compose aan en werk de browser-URL bij. |
 | Reviewer geeft 401/403 | Vul de key uit de actuele `.env` in; herstart na configuratiewijziging. |
 | Backend niet bereikbaar | Bekijk `docker compose ps` en `docker compose logs api`. |
+| PostgreSQL start niet | Controleer of `POSTGRES_PASSWORD` in `.env` staat en of `./data/postgres` niet van een oude, conflicterende database-run komt. |
 | Workflowimport lukt niet | Gebruik de UI-import en controleer n8n-versie/nodeparameters. |
 | Opslagfout | Geen succesbericht verwachten; controleer schrijfrechten, volume en containerlogs. |
 
 ## Privacy en grenzen
 
-Alleen synthetische invoer. AI krijgt een allowlistobject met leeftijdsgroep, type voorziening, ernst, aantal problemen, beperkingen en bestaande ondersteuning. Geen naam, adres, geboortedatum, citizenId of intern token. Pseudonimisering is **geen anonimisering**; ook geminimaliseerde zorggegevens blijven gevoelig. Koppelingen en audit staan gescheiden op logisch niveau, niet in een productieklare beveiligingsarchitectuur.
+Alleen synthetische invoer. AI krijgt een allowlistobject met leeftijdsgroep, type voorziening, ernst, aantal problemen, beperkingen en bestaande ondersteuning. Geen naam, adres, geboortedatum, citizenId of intern token. Pseudonimisering is **geen anonimisering**; ook geminimaliseerde zorggegevens blijven gevoelig. Koppelingen en audit staan gescheiden op logisch tabelniveau, niet in een productieklare beveiligingsarchitectuur.
 
-De fairness-check is een woordenlijst en de onderbouwingscheck een heuristiek. Deze vinden niet alle problemen en kunnen onschuldige tekst markeren. De stub is geen echt LLM. Reviewer-key, SQLite, lokale procesinrichting en n8n-executie-instellingen vormen geen productiebeveiliging of bewijs van AVG-compliance. Geen echte inwonersdata en geen publieke deployment.
+De fairness-check is een woordenlijst en de onderbouwingscheck een heuristiek. Deze vinden niet alle problemen en kunnen onschuldige tekst markeren. De stub is geen echt LLM. Reviewer-key, lokale PostgreSQL-inrichting en n8n-executie-instellingen vormen geen productiebeveiliging of bewijs van AVG-compliance. Geen echte inwonersdata en geen publieke deployment.
 
 ## Inleveren en eigen acties
 
@@ -198,6 +204,6 @@ Maak het pakket met:
 python scripts/make_submission_zip.py
 ```
 
-Lever code, Compose, `n8n/workflow.json`, fixtures, tests, `docs/`, `NOG-TE-DOEN.md` en het ZIP-bestand uit `dist/` in. `dist/` staat bewust niet in Git: genereer het pakket opnieuw vlak voor het inleveren. Het script sluit `.env`, credentials, identity-databases, virtuele omgevingen, caches, node_modules, oude ZIP-bestanden en ruwe n8n-exportmetadata uit. `docs/audit-demo.sqlite` is synthetisch testbewijs uit de actieve auditdatabase, niet de identity-mappingdatabase.
+Lever code, Compose, `n8n/workflow.json`, `postgres/initdb/`, fixtures, tests, `docs/`, `NOG-TE-DOEN.md` en het ZIP-bestand uit `dist/` in. `dist/` staat bewust niet in Git: genereer het pakket opnieuw vlak voor het inleveren. Het script sluit `.env`, credentials, lokale `data/`, identity-databases, virtuele omgevingen, caches, node_modules, oude ZIP-bestanden en ruwe n8n-exportmetadata uit. `docs/audit-demo.sqlite` is synthetisch testbewijs uit de eerdere auditdatabase, niet de identity-mappingdatabase.
 
 Nog zelf uitvoeren: lokale start en E2E-/Docker-herstartcheck, rollen/namen invullen, twee niet-ICT-studenten laten testen, foto's met toestemming maken, feedback geven aan én ontvangen van een andere groep, echte wijzigingen vastleggen en presentatie oefenen. Formats staan in `docs/`.

@@ -9,7 +9,7 @@ def run(*args):
 try:
     run('docker','compose','version')
     run(sys.executable,str(root/'scripts/setup.py'))
-    run('docker','compose','up','-d','--build','api')
+    run('docker','compose','up','-d','--build','postgres','api')
     # Offline CLI writes prevent concurrent n8n database migration/import operations.
     run('docker','compose','stop','n8n')
     run('docker','compose','run','--rm','--no-deps','n8n','import:workflow','--input=/workflows/workflow.json')

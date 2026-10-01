@@ -1,5 +1,5 @@
 {
-  "executedAt": "2026-10-01T09:53:46.473539+00:00",
+  "executedAt": "2026-10-01T11:25:55.943002+00:00",
   "webhook": "http://localhost:5678/webhook/wmo-aanvraag",
   "scope": "actual n8n orchestration; no backend fallback",
   "tests": [
@@ -8,29 +8,29 @@
       "transport": "actual_n8n_webhook",
       "status": "passed",
       "httpStatus": 200,
-      "caseId": "381214b2-2ee1-4777-ba3b-522976552cd6"
+      "caseId": "9407c9b0-7834-41cd-850c-f80ed359ccb5"
     },
     {
       "test": "high_risk",
       "transport": "actual_n8n_webhook",
       "status": "passed",
       "httpStatus": 200,
-      "caseId": "9352d1ba-80cb-414f-bf07-e7d32f153e0b"
+      "caseId": "425dc2d0-ea55-495a-a106-c84f5d609d7b"
     },
     {
       "test": "fairness",
       "transport": "actual_n8n_webhook",
       "status": "passed",
       "httpStatus": 200,
-      "caseId": "2fad454e-4044-4290-af5a-7c235bfda947"
+      "caseId": "9869d12b-628b-4cd0-bd33-c504736c04cb"
     },
     {
       "test": "no_consent",
       "transport": "actual_n8n_webhook",
       "status": "passed",
       "httpStatus": 400,
-      "aiCallsBefore": 12,
-      "aiCallsAfter": 12
+      "aiCallsBefore": 6,
+      "aiCallsAfter": 6
     },
     {
       "test": "reviewer_access_controls",

@@ -18,6 +18,9 @@ REVIEWER = {'X-Reviewer-Key': 'test-reviewer'}
 def client(tmp_path, monkeypatch):
     monkeypatch.setattr(main, 'DB_PATH', str(tmp_path / 'audit.db'))
     monkeypatch.setattr(main, 'IDENTITY_PATH', str(tmp_path / 'identity.db'))
+    monkeypatch.setattr(main, 'DATABASE_URL', '')
+    monkeypatch.setattr(main, 'IDENTITY_DATABASE_URL', '')
+    monkeypatch.setattr(main, 'DB_DRIVER', 'sqlite')
     monkeypatch.setattr(main, 'REVIEWER_KEY', 'test-reviewer')
     monkeypatch.setattr(main, 'INTERNAL_KEY', 'test-internal')
     monkeypatch.setattr(main, 'DEMO_MODE', True)

@@ -14,7 +14,7 @@ ZIP = OUT_DIR / 'zelfstandige-zorgagent-inleverpakket.zip'
 
 EXCLUDE_DIRS = {
     '.git', '.venv', 'venv', 'node_modules', '__pycache__', '.pytest_cache',
-    '.mypy_cache', '.ruff_cache', 'dist',
+    '.mypy_cache', '.ruff_cache', 'dist', 'data',
 }
 EXCLUDE_FILES = {
     '.env',
@@ -38,7 +38,7 @@ def excluded(path: Path) -> bool:
 with zipfile.ZipFile(ZIP, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
     zf.writestr('PAKKET-GEGENEREERD.txt',
                 'Gegenereerd op ' + datetime.now(timezone.utc).isoformat() + '\n'
-                'Uitgesloten: .env, credentials, identity-databases, caches, virtuele omgevingen, node_modules en oude zipbestanden.\n')
+                'Uitgesloten: .env, credentials, lokale data/, identity-databases, caches, virtuele omgevingen, node_modules en oude zipbestanden.\n')
     for path in sorted(ROOT.rglob('*')):
         if path.is_dir() or excluded(path):
             continue

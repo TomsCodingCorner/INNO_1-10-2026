@@ -4,6 +4,7 @@
 !.env.example
 
 # Runtime-databases (identity-mapping en audit blijven lokaal)
+data/
 *.db
 *.db-*
 *.sqlite

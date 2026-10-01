@@ -4,7 +4,7 @@
 
 | Controle | Status | Bewijs / grens |
 |---|---|---|
-| Backend regressietests | 21 geslaagd | `docker compose run --rm --no-deps -v "${PWD}:/workspace" -w /workspace api python -m pytest tests -q --junitxml=test-artifacts/backend-results.xml` |
+| Backend regressietests | 21 geslaagd | `docker compose run --rm --no-deps -v "${PWD}:/workspace" -w /workspace api python -m pytest tests -q` |
 | Laag risico via echte n8n-webhook | Geslaagd | HTTP 200, opgeslagen dossier, detailpagina-data, audit en menselijke demo-beslissing `needs_information`. |
 | Hoog risico via echte n8n-webhook | Geslaagd | HTTP 200, prioriteitsreview, risicoscore 100 en begrijpelijke reden. |
 | Fairness via echte n8n-webhook | Geslaagd | Stub produceert verboden term; fairness-check detecteert `fairness:geslacht`; burgerbericht lekt term niet. |
@@ -18,7 +18,7 @@
 | Actuele n8n-export | Geslaagd | Live-export uit container vergeleken: 14 nodes; gesaneerd opgeslagen in `n8n/workflow.json`. |
 | Auditdatabase bewijs | Geslaagd | `docs/audit-demo.sqlite` gekopieerd uit actieve synthetische auditdatabase; identity-database niet meegeleverd. |
 | Servicefout geen vals succes | Aanwezig, nog te verifiëren | Foutpad bestaat in workflow en `/submit`; in deze ronde niet opnieuw geforceerd door n8n/API uit te schakelen. |
-| Docker-herstart persistentie | Aanwezig, nog te verifiëren | Volumes behouden en API herbouwd; expliciete `docker compose restart` met terugzoekactie niet opnieuw uitgevoerd. |
+| Docker-herstart persistentie | Geslaagd | `docker compose restart postgres api n8n`; daarna `/health` = `ok`, database = `postgres`, eerder dossier teruggevonden. |
 | Echte gebruikers-/presentatiefeedback | Niet uitgevoerd | Teamtaak, zie `docs/feedback.md` en `NOG-TE-DOEN.md`. |
 
 ## Uitvoerbestanden
@@ -31,7 +31,7 @@
 
 ## Testomgeving
 
-Docker Compose draaide lokaal met `zorgagent-api-1` en `zorgagent-n8n-1`. De API-container is opnieuw gebouwd met behoud van named volumes. De aanvragen in `scripts/test_e2e.py` zijn naar de echte n8n-productiewebhook gestuurd; het script heeft geen fallback naar losse backendfuncties voor het indienen van aanvragen.
+Docker Compose draaide lokaal met drie containers: `inno_1-10-2026-postgres-1`, `inno_1-10-2026-api-1` en `inno_1-10-2026-n8n-1`. De API-healthcheck rapporteerde `database: postgres`. De aanvragen in `scripts/test_e2e.py` zijn naar de echte n8n-productiewebhook gestuurd; het script heeft geen fallback naar losse backendfuncties voor het indienen van aanvragen.
 
 De browsercheck is eerlijk beperkt: de pagina renderde zichtbaar, maar de gebruikte in-app browserautomatisering kon tabwissels niet betrouwbaar activeren. De functionele gebruikersflow is daarom via echte HTTP/n8n/API-controles getest en moet handmatig in de browser worden nagespeeld voor de presentatie.
 
